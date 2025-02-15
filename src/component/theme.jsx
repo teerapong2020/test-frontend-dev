@@ -21,9 +21,11 @@ export default function Theme() {
     <div>
       <div className={theme?"bg-black h-screen":"bg-white h-screen"} >
         <button>
-          <Link to={"/"} className="text-blue-300 text-5xl">หน้าหลัก</Link>
+          <Link to={"/"} className={theme?"bg-gray-600 text-3xl text-white":"bg-gray-600 text-3xl text-white"}>หน้าหลัก</Link>
         </button>
-        <button onClick={handleSwitch} className="text-red-700 text-4xl bg-yellow-400 ">swtich</button>
+        <div className="flex justify-center h-1/2 items-end ">
+        <button onClick={handleSwitch} className="text-red-700 text-6xl bg-yellow-400 p-12 rounded-xl ">swtich</button>
+        </div>
       </div>
     </div>
   );

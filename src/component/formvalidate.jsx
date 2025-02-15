@@ -1,73 +1,62 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-export default function Formvalidate() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-
-  const show = watch("showPassword", false);
+export default function SimpleForm() {
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    if (data.password !== data.confirm) {
-      window.alert("not match");
-      return;
-    }
-    if (/\s/.test(data.email) || /\s/.test(data.username) || /\s/.test(data.password) || /\s/.test(data.confirm)) {
-      window.alert("ห้ามเว้นช่องว่าง");
-      return;
-    }
-
-    console.log("อีเมล:", data.email);
-    console.log("ชื่อผู้ใช้:", data.username);
-    console.log("รหัสผ่าน:", data.password);
+    console.log("Form Data:", data);
   };
 
   return (
-    <div>
-      <button>
-        <Link to={"/"}>หน้าหลัก</Link>
-      </button>
+   <div>
+     <button className="bg-black">
+    <Link to={"/"} className="text-white text-5xl">
+      หน้าหลัก
+    </Link>
+  </button>
+    <div className="max-w-sm mx-auto p-4 border rounded-lg shadow">
+      <h2 className="text-lg font-semibold mb-4">Register</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>สมัครสมาชิก</h1>
-        
-        <input 
-          type="email" 
-          placeholder="enter email" 
-          {...register("email", { required: "กรุณากรอกอีเมล" })} 
-        />
-        {errors.email && <p>{errors.email.message}</p>}
+        {/* Email Field */}
+        <div className="mb-3">
+          <label className="block mb-1 font-medium">Email</label>
+          <input
+            type="email"
+            {...register("email", { required: "Email is required" })}
+            className="w-full p-2 border rounded"
+          ></input>
+        </div>
 
-        <input 
-          type="text" 
-          placeholder="enter username" 
-          {...register("username", { required: "กรุณากรอกชื่อผู้ใช้" })} 
-        />
-        {errors.username && <p>{errors.username.message}</p>}
+        {/* UserName */}
+        <div className="mb-3">
+          <label className="block mb-1 font-medium">UserName</label>
+          <input
+            type="text"
+            className="w-full p-2 border rounded"
+            {...register("username", { required: "username is required" })}
+          ></input>
+        </div>
 
-        <input 
-          type={show ? "text" : "password"} 
-          placeholder="enter password" 
-          {...register("password", { required: "กรุณากรอกรหัสผ่าน" })} 
-        />
-        {errors.password && <p>{errors.password.message}</p>}
+        {/* Password Field */}
+        <div className="mb-3">
+          <label className="block mb-1 font-medium">Password</label>
+          <input
+            type="password"
+            {...register("password", { required: "Password is required" })}
+            className="w-full p-2 border rounded"
+          ></input>
+        </div>
 
-        <input 
-          type="password" 
-          placeholder="confirm password" 
-          {...register("confirm", { required: "กรุณายืนยันรหัสผ่าน" })} 
-        />
-        {errors.confirm && <p>{errors.confirm.message}</p>}
-
-        <label>
-          <input type="button" {...register("showPassword")} /> Show Password
-        </label>
-
-        <button type="submit">ยืนยันการสมัครสมาชิก</button>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Submit
+        </button>
       </form>
     </div>
+   </div>
   );
 }
